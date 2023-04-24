@@ -8,7 +8,7 @@ class requestLogic
 		switch ($method)
 		{
 			case 'getAppointList':
-				$result = appoint::getList($param['id']);
+				$result = appoint::getList($param['limit']);
 				break;
 			case 'getFullAppoint':
 				$result = appoint::getAppoint($param['id']);
