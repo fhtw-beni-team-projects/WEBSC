@@ -14,13 +14,34 @@ class requestLogic
 				$result = appoint::getAppoint($param['id']);
 				break;
 			case 'newAppoint':
+				if (!isset($_SESSION['user_id']))
+					return null;
+				
+				$result = appoint::newAppoint($param['timeslots'], $param['title'], $param['descr'], $param['deadline'], $_SESSION['user_id'])
 				break;
-			case 'newVotes':
+			case 'changeVotes':
+				if (!isset($_SESSION['user_id']))
+					return null;
+				
+				foreach ($param['votes'] as $vote) {
+					if ($vote['id'] != NULL $vote['confirm'] == false) {
+						appoint::delVote($vote['id'], $_SESSION['user_id']);
+						continue;
+					}
+
+					if ($vote['id'] == NULL $vote['confirm'] == true) {
+						appoint::addVote($vote['timeslot_id'], $_SESSION['user_id']);
+					}
+				}
 				break;
 			case 'getName':
 				$result = user::getName($param['id']);
 				break;
 			case 'newComment':
+				if (!isset($_SESSION['user_id']))
+					return null;
+
+				$result = appoint::newComment($param['content'], $param['appoint_id'], $_SESSION['user_id'])
 				break;
 			case 'login':
 				$user = new user();

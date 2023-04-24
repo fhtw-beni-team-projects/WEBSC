@@ -21,7 +21,7 @@ class user
 		$stmt->close();
 
 		if ($user && password_verify($pwd, $user['pwd_hash'])) {
-			$_SESSION['userid'] = $user['id'];
+			$_SESSION['user_id'] = $user['id'];
 			$success = true;
 		} else {
 			$success = false;
@@ -32,7 +32,7 @@ class user
 		return $success;
 	}
 
-	public function login($email, $pwd, $fname, $lname)
+	public function signup($email, $pwd, $fname, $lname)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {
@@ -59,8 +59,8 @@ class user
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("ssss", $email, $pwd_hash, $fname, $lname);
 	
-		$success = $stmt->execute() {
-			
+		$success = $stmt->execute();
+
 		if ($success) {
 			$sql = "SELECT * FROM users WHERE email = ?";
 			$stmt2 = $conn->prepare($sql);
@@ -68,7 +68,7 @@ class user
 			$stmt2->execute();
 			$user = $stmt2->get_result()->fetch_assoc();
 	
-			$_SESSION['userid'] = $user['id'];
+			$_SESSION['user_id'] = $user['id'];
 		}
 
 		$stmt->close();
