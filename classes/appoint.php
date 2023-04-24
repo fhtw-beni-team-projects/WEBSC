@@ -53,7 +53,25 @@ class appoint
 			$unsuccess += !(newTimeslot($timeslot['start'], $timeslot['end'], $result['id']));
 		}
 
+		$unsuccess += !(newTimeslot(NULL, NULL, $result['id']));
+
 		return (bool) !$unsuccess
+	}
+
+	public static function delAppoint($id, $user_id)
+	{
+		$conn = new mysqli_init();
+		if ($conn->connect_error) {
+			die("Connection failed: ".$conn->connect_error);
+		}
+
+		$sql = "DELETE FROM appointment WHERE id = ? AND user_id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("ii", $id, $user_id);
+	
+		$success = $stmt->execute();
+
+		return $success
 	}
 
 	public static function getAppoint($id)
@@ -77,6 +95,48 @@ class appoint
 		$conn->close();
 
 		return $result;
+	}
+
+	public static function appointOpen($id)
+	{
+		$conn = new mysqli_init();
+		if ($conn->connect_error) {
+			die("Connection failed: ".$conn->connect_error);
+		}
+
+		$sql = "SELECT deadline FROM appointment WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("i", $id);
+		$stmt->execute()
+
+		$result = $stmt->get_result()->fetch_assoc();
+		$stmt->close();
+
+		$open = timestamp() <= $result['timestamp']
+
+		$conn->close();
+
+		return $open;
+	}
+
+	private static function getAppointID($id)
+	{
+		$conn = new mysqli_init();
+		if ($conn->connect_error) {
+			die("Connection failed: ".$conn->connect_error);
+		}
+
+		$sql = "SELECT appoint_id FROM timeslot WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("i", $id);
+		$stmt->execute()
+
+		$result = $stmt->get_result()->fetch_assoc();
+
+		$stmt->close();
+		$conn->close();
+
+		return $result['appoint_id'];
 	}
 
 	private static function newTimeslot($start, $end, $appoint_id)
@@ -214,7 +274,7 @@ class appoint
 		while($row = $stmt->get_result()->fetch_assoc()) {
 		    $result[] = $row;
 		}
-		
+
 		$stmt->close();
 		$conn->close();
 

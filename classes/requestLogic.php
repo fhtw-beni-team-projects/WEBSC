@@ -16,13 +16,22 @@ class requestLogic
 			case 'newAppoint':
 				if (!isset($_SESSION['user_id']))
 					return null;
-				
+
 				$result = appoint::newAppoint($param['timeslots'], $param['title'], $param['descr'], $param['deadline'], $_SESSION['user_id'])
+				break;
+			case 'delAppoint':
+				if (!isset($_SESSION['user_id']))
+					return null;
+				
+				$result = appoint::delAppoint($param['id'], $_SESSION['user_id'])
 				break;
 			case 'changeVotes':
 				if (!isset($_SESSION['user_id']))
 					return null;
-				
+
+				if (!appoint::appointOpen($param[0]['timeslot_id']))
+					return null;
+
 				foreach ($param['votes'] as $vote) {
 					if ($vote['id'] != NULL $vote['confirm'] == false) {
 						appoint::delVote($vote['id'], $_SESSION['user_id']);
