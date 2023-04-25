@@ -136,7 +136,7 @@ $.ajax({
         email: "hello@email.com",
         pwd: "password1234!",
         fname: "Papst",
-        lname, "Franciscus",
+        lname: "Franciscus",
     }},
     dataType: "json",
     success: function (response) {

@@ -11,7 +11,7 @@ class user
 			die("Connection failed: " . $conn->connect_error);
 		}
 
-		$sql = "SELECT * FROM users WHERE email = ?";
+		$sql = "SELECT * FROM user WHERE email = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $email);
 		$stmt->execute();
@@ -43,7 +43,7 @@ class user
 			return false;
 		}
 
-		$sql = "SELECT * FROM users WHERE email = ?";
+		$sql = "SELECT * FROM user WHERE email = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $email);
 		$stmt->execute();
@@ -55,14 +55,14 @@ class user
 
 		$pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
 	
-		$sql = "INSERT INTO users (email, pwd_hash, fname, lname) VALUES (?, ?, ?, ?)";
+		$sql = "INSERT INTO user (email, pwd_hash, fname, lname) VALUES (?, ?, ?, ?)";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("ssss", $email, $pwd_hash, $fname, $lname);
 	
 		$success = $stmt->execute();
 
 		if ($success) {
-			$sql = "SELECT * FROM users WHERE email = ?";
+			$sql = "SELECT * FROM user WHERE email = ?";
 			$stmt2 = $conn->prepare($sql);
 			$stmt2->bind_param("s", $email);
 			$stmt2->execute();
@@ -87,7 +87,7 @@ class user
 		$sql = "SELECT * FROM user WHERE id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
-		$stmt->execute()
+		$stmt->execute();
 
 		$result = $stmt->get_result()->fetch_assoc();
 

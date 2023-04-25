@@ -17,13 +17,13 @@ class requestLogic
 				if (!isset($_SESSION['user_id']))
 					return null;
 
-				$result = appoint::newAppoint($param['timeslots'], $param['title'], $param['descr'], $param['deadline'], $_SESSION['user_id'])
+				$result = appoint::newAppoint($param['timeslots'], $param['title'], $param['descr'], $param['deadline'], $_SESSION['user_id']);
 				break;
 			case 'delAppoint':
 				if (!isset($_SESSION['user_id']))
 					return null;
 				
-				$result = appoint::delAppoint($param['id'], $_SESSION['user_id'])
+				$result = appoint::delAppoint($param['id'], $_SESSION['user_id']);
 				break;
 			case 'changeVotes':
 				if (!isset($_SESSION['user_id']))
@@ -32,13 +32,13 @@ class requestLogic
 				if (!appoint::appointOpen($param[0]['timeslot_id']))
 					return null;
 
-				foreach ($param['votes'] as $vote) {
-					if ($vote['id'] != NULL $vote['confirm'] == false) {
+				foreach ($vote as $param['votes']) {
+					if ($vote['id'] != NULL && $vote['confirm'] == false) {
 						appoint::delVote($vote['id'], $_SESSION['user_id']);
 						continue;
 					}
 
-					if ($vote['id'] == NULL $vote['confirm'] == true) {
+					if ($vote['id'] == NULL && $vote['confirm'] == true) {
 						appoint::addVote($vote['timeslot_id'], $_SESSION['user_id']);
 					}
 				}
@@ -50,7 +50,7 @@ class requestLogic
 				if (!isset($_SESSION['user_id']))
 					return null;
 
-				$result = appoint::newComment($param['content'], $param['appoint_id'], $_SESSION['user_id'])
+				$result = appoint::newComment($param['content'], $param['appoint_id'], $_SESSION['user_id']);
 				break;
 			case 'login':
 				$user = new user();

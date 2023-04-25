@@ -49,7 +49,7 @@ class appoint
 
 		$unsuccess = !$success;
 
-		foreach ($timeslots as $timeslot) {
+		foreach ($timeslot as $timeslots) {
 			$unsuccess += !(newTimeslot($timeslot['start'], $timeslot['end'], $result['id']));
 		}
 
