@@ -11,7 +11,7 @@ session_start();
 	<title>Not doodle</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script defer src="./common.js"></script>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="base.css">
 </head>
 <body>
 <nav class="navMenu">
