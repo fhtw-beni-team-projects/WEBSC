@@ -50,10 +50,10 @@ class appoint
 		$unsuccess = !$success;
 
 		foreach ($timeslot as $timeslots) {
-			$unsuccess += !(newTimeslot($timeslot['start'], $timeslot['end'], $result['id']));
+			$unsuccess += !($this->newTimeslot($timeslot['start'], $timeslot['end'], $result['id']));
 		}
 
-		$unsuccess += !(newTimeslot(NULL, NULL, $result['id']));
+		$unsuccess += !($this->newTimeslot(NULL, NULL, $result['id']));
 
 		return (bool) !$unsuccess
 	}
@@ -89,8 +89,8 @@ class appoint
 		$result = $stmt->get_result()->fetch_assoc();
 		$stmt->close();
 
-		$result['timeslot'] = getTimeslots($id, true);
-		$result['comments'] = getComments($id);
+		$result['timeslot'] = $this->getTimeslots($id, true);
+		$result['comments'] = $this->getComments($id);
 
 		$conn->close();
 

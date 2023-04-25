@@ -22,7 +22,7 @@ class user
 
 		if ($user && password_verify($pwd, $user['pwd_hash'])) {
 			$_SESSION['user_id'] = $user['id'];
-			$success = true;
+			$success = $this->getName($user['id']);
 		} else {
 			$success = false;
 		}
@@ -69,6 +69,7 @@ class user
 			$user = $stmt2->get_result()->fetch_assoc();
 	
 			$_SESSION['user_id'] = $user['id'];
+			$success = $this->getName($user['id']);
 		}
 
 		$stmt->close();
@@ -94,6 +95,6 @@ class user
 		$stmt->close();
 		$conn->close();
 
-		return $result['fname'] + ' ' + $result['lname'];
+		return $result['fname'] . ' ' . $result['lname'];
 	}
 }

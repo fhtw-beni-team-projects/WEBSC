@@ -54,7 +54,9 @@ class requestLogic
 				break;
 			case 'login':
 				$user = new user();
-				$result = $user->login($param['email'], $param['pwd']) ? true : null;
+				$result = $user->login($param['email'], $param['pwd']);
+				if ($result == false)
+					$result == null;
 				break;
 			case 'logout':
 				setcookie(session_name(), '', 100);
@@ -65,7 +67,9 @@ class requestLogic
 				break;
 			case 'signup':
 				$user = new user();
-				$result = $user->signup($param['email'], $param['pwd'], $param['fname'], $param['lname']) ? true : null;
+				$result = $user->signup($param['email'], $param['pwd'], $param['fname'], $param['lname']);
+				if ($result == false)
+					$result == null;
 				break;
 			default:
 				$result = null;

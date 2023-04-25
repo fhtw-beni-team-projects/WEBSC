@@ -14,7 +14,7 @@ function login() {
     	data: { method: "login", param: form_data },
     	dataType: "json",
     	success: function (response) {
-	    	console.log("success");
+	    	$('#user-button').html(response);
     	}        
 	});
 }
@@ -32,7 +32,7 @@ function signup() {
 	    data: { method: "signup", param: form_data },
 	    dataType: "json",
 	    success: function (response) {
-	    	console.log("success");
+	    	$('#user-button').html(response);
 	    }        
 	});
 }

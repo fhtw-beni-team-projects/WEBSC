@@ -15,13 +15,13 @@ session_start();
 </head>
 <body>
 <nav class="navMenu">
-      <a href="#">Home</a>
-      <a href="#">About</a>
-	  <a href="#" id="login-button">Login</a>
-	  <a href="#" id="user-button"></a>
+      <a id="home-button">Home</a>
+      <a id="about-button">About</a>
+	  <a id="login-button">Login</a>
+	  <a id="user-button"></a>
       <div class="dot"></div>
     </nav>
-    
+
 	<?php include "./i/login.html" ?>
 </body>
 </html>
