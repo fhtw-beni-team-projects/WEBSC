@@ -1,5 +1,5 @@
 <?php
-include("class.php");
+require 'class.php';
 
 $method = "";
 $param = "";
