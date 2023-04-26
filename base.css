@@ -6,6 +6,7 @@
   box-sizing: border-box;
 }
 
+
 :root {
   --bg-back: #bdc3c7;
   --bg-main: dimgrey;
@@ -36,6 +37,10 @@
   right: 2%;
 }
 
+a :hover {
+  cursor: pointer;
+}
+
 body {
   background: #272727;
   font-family: "Montserrat", sans-serif;
@@ -45,6 +50,7 @@ body {
   position: absolute;
   margin-top: 2%;
   margin-left: 2%;
+  cursor: pointer;
 }
 
 .navMenu a {
@@ -202,4 +208,5 @@ button {
 
 #changeForm {
   color: darkblue;
+  cursor: pointer;
 }

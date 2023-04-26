@@ -1,13 +1,15 @@
 var timeslots = 0;
 
-$("#sendLogin").on("click", login);
-$("#sendSignup").on("click", signup);
-$("#sendAppoint").on("click", newAppoint);
-$("#login-button").on("click", openLoginForm)
+$("#sendLogin").click(login);
+$("#sendSignup").click(signup);
+$("#sendAppoint").click(newAppoint);
+$("#login-button").click(()=>{openForm("login")});
 
-function openLoginForm() {
-	openForm("login"); 
-}
+$("#closeLogin").click(closeForm);
+$("#closeSignup").click(closeForm);
+$("#sendLogin").click(login);
+$("#sendSignup").click(signup);
+$("#changeForm").click(()=>{openForm("signup")})
 
 function openForm(form) {
 	$('#' + form + ", .darkener").show();
@@ -33,6 +35,7 @@ function login() {
 	    	$('#user-button').html(response);
     	}        
 	});
+	closeForm();
 }
 
 function signup() {
@@ -51,6 +54,7 @@ function signup() {
 	    	$('#user-button').html(response);
 	    }        
 	});
+	closeForm();
 }
 
 function newAppoint() {
