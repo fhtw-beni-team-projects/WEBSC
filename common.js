@@ -6,6 +6,12 @@ $("#sendAppoint").click(newAppoint);
 $("#login-button").click(()=>{openForm("login")});
 $("#timeslot-prompt").click(newTimeslotField);
 
+$("#closeLogin").click(closeForm);
+$("#closeSignup").click(closeForm);
+$("#sendLogin").click(login);
+$("#sendSignup").click(signup);
+$("#changeForm").click(()=>{openForm("signup")})
+
 function openForm(form) {
 	$('#' + form + ", .darkener").show();
 }
@@ -93,3 +99,24 @@ function newTimeslotField() {
 	$("#appoint-inputs").append(label);
 	$("#appoint-inputs").append(option);
 }
+
+function generateAppointmentElements() {
+	var json = [];
+	$.ajax({
+		type: "GET",
+		url: "../service_handler.php",
+		cache: false,
+		data: { method: "getAppointList", param: {
+			limit: Date.now(),
+		}}, // TODO: date
+		dataType: "json",
+		success: function (response) {
+			json = response;
+		}
+
+	});
+}
+
+window.addEventListener('load', function () {
+	generateAppointmentElements();
+  })
