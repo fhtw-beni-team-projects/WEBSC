@@ -32,7 +32,7 @@ class requestLogic
 				if (!appoint::appointOpen($param[0]['timeslot_id']))
 					return null;
 
-				foreach ($vote as $param['votes']) {
+				foreach ($param['votes'] as $vote) {
 					if ($vote['id'] != NULL && $vote['confirm'] == false) {
 						appoint::delVote($vote['id'], $_SESSION['user_id']);
 						continue;

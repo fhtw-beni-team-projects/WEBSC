@@ -48,7 +48,7 @@ class appoint
 
 		$unsuccess = !$success;
 
-		foreach ($timeslot as $timeslots) {
+		foreach ($timeslots as $timeslot) {
 			$unsuccess += !(self::newTimeslot($timeslot, $id));
 		}
 
