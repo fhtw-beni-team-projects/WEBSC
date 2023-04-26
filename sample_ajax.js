@@ -28,17 +28,12 @@ $.ajax({
     cache: false,
     data: { method: "newAppoint", param: {
         timeslots: [
-            {
-                start: Date.now(),
-                end: Date.now(),
-            },
-            {
-                start: Date.now(),
-                end: Date.now(),
-            },
+            Date.now(),
+            Date.now(),
         ],
         title: "title",
         descr: "descr",
+        duration: Date.now().getTime() - Date.now().getTime(),
         deadline: Date.now(),
     }},
     dataType: "json",

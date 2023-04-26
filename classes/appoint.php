@@ -28,17 +28,17 @@ class appoint
 		return $array;
 	}
 
-	public static function newAppoint($timeslots, $title, $descr, $deadline, $user_id)
+	public static function newAppoint($timeslots, $title, $descr, $duration, $deadline, $user_id)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "INSERT INTO appointment (user_id, title, descr, deadline) VALUES (?, ?, ?, ?);"
+		$sql = "INSERT INTO appointment (user_id, title, descr, duration, deadline) VALUES (?, ?, ?, ?, ?);"
 				"SELECT id FROM appointment WHERE id = SCOPE_IDENTITY();";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("issi", $user_id, $title, $descr, $deadline);
+		$stmt->bind_param("issii", $user_id, $title, $descr, $duration, $deadline);
 	
 		$success = $stmt->execute();
 		$result = $stmt->get_result()->fetch_assoc();
@@ -50,10 +50,10 @@ class appoint
 		$unsuccess = !$success;
 
 		foreach ($timeslot as $timeslots) {
-			$unsuccess += !($this->newTimeslot($timeslot['start'], $timeslot['end'], $result['id']));
+			$unsuccess += !($this->newTimeslot($timeslot, $result['id']));
 		}
 
-		$unsuccess += !($this->newTimeslot(NULL, NULL, $result['id']));
+		$unsuccess += !($this->newTimeslot(NULL, $result['id']));
 
 		return (bool) !$unsuccess
 	}
@@ -139,16 +139,16 @@ class appoint
 		return $result['appoint_id'];
 	}
 
-	private static function newTimeslot($start, $end, $appoint_id)
+	private static function newTimeslot($start, $appoint_id)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "INSERT INTO timeslot (appoint_id, start_time, end_time) VALUES (?, ?, ?)";
+		$sql = "INSERT INTO timeslot (appoint_id, start_time) VALUES (?, ?)";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("iii", $appoint_id, $start, $end);
+		$stmt->bind_param("ii", $appoint_id, $start);
 	
 		$success = $stmt->execute();
 
