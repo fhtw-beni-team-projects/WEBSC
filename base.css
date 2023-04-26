@@ -6,6 +6,24 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-back: #bdc3c7;
+  --bg-main: dimgrey;
+  --bg-main-lite: ;
+  --bg-inv: #34495e;
+  --bg-inv-lite: #2c3e50;
+  --color-main: #2c3e50;
+  --color-main-lite: #7f8c8d;
+  --color-inv: #ecf0f1;
+  --color-inv-lite: #bdc3c7;
+  --color-link: #3498db;
+  --color-link-lite: #2980b9;
+  --red: #e74c3c;
+  --red-lite: #c0392b;
+  --yellow: #f1c40f;
+  --yellow-lite: #f39c12;
+}
+
 #user-button {
   visibility: hidden;
   position: fixed;
@@ -79,4 +97,109 @@ body {
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
   opacity: 1;
+}
+
+.formcontent {
+  display: grid;
+/*grid-template-columns: 0fr 0fr auto;*/
+}
+
+.formcontent.grid {
+  column-gap: 0;
+  grid-template-columns: 0fr 0fr auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 75% auto;
+  grid-column-gap: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.grid.equal {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.descr {
+  display: inline-block;
+  padding: 0;
+  margin: 10px;
+  padding: 10px;
+  text-align: right;
+  color: #f6f4e6;
+}
+
+.btn {
+  background: #fddb3a;
+  color: #272727;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline;
+  transition: 0.8s;
+}
+
+.grid > .formleft {
+  grid-column: 1/2
+}
+
+.grid > .formright {
+  grid-column: 2/3;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 1px 1px 3px;
+  background: var(--bg-main);
+  border-radius: 5px;
+  margin: 10px;
+  display: none;
+  z-index: 4;
+  padding: 25px;
+}
+
+.forminput {
+  padding: 10px;
+  margin: 10px;
+  margin-left: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  border: 1px solid var(--bg-main);
+  background: #fff;
+  font: inherit;
+  grid-column: 2 / 4;
+}
+
+.grid > .formrightright {
+  grid-column: 3/4;
+}
+
+.grid > .formfull {
+  grid-column: 1/3;
+}
+
+.formtext.formfull {
+  margin-top: 5px;
+  text-align: center;
+}
+
+button {
+  color: #fddb3a;
+  background: inherit;
+  border: inherit;
+  font: inherit;
+}
+
+#loginpromt {
+  color:#2c3e50;  
+}
+
+#changeForm {
+  color: darkblue;
 }
