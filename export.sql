@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 18, 2023 at 03:40 PM
+-- Generation Time: Apr 26, 2023 at 05:22 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -32,6 +32,7 @@ CREATE TABLE `appointment` (
   `user_id` int(11) NOT NULL,
   `title` tinytext NOT NULL,
   `descr` text NOT NULL,
+  `duration` int(11) NOT NULL DEFAULT 0,
   `deadline` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -58,8 +59,7 @@ CREATE TABLE `comment` (
 CREATE TABLE `timeslot` (
   `id` int(11) NOT NULL,
   `appoint_id` int(11) NOT NULL,
-  `start_time` timestamp NULL DEFAULT NULL,
-  `end_time` timestamp NULL DEFAULT NULL
+  `start_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -76,6 +76,13 @@ CREATE TABLE `user` (
   `lname` tinytext NOT NULL,
   `join_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `pwd_hash`, `fname`, `lname`, `join_date`) VALUES
+(1, 'asd@asd.at', '$2y$10$vkBV6y.nNBVc9LnDb8geFeKvMxAywKHvl2dkngfEUbgNNrKr7m9oy', 'asd', 'asd', '2023-04-25 15:59:33');
 
 -- --------------------------------------------------------
 
@@ -98,7 +105,7 @@ CREATE TABLE `vote` (
 --
 ALTER TABLE `appointment`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `appointment_ibfk_1` (`user_id`);
 
 --
 -- Indexes for table `comment`
@@ -113,7 +120,7 @@ ALTER TABLE `comment`
 --
 ALTER TABLE `timeslot`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `appoint_id` (`appoint_id`);
+  ADD KEY `timeslot_ibfk_1` (`appoint_id`);
 
 --
 -- Indexes for table `user`
@@ -127,8 +134,8 @@ ALTER TABLE `user`
 --
 ALTER TABLE `vote`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `timeslot_id` (`timeslot_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `vote_ibfk_1` (`timeslot_id`),
+  ADD KEY `vote_ibfk_2` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -156,7 +163,7 @@ ALTER TABLE `timeslot`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `vote`
@@ -172,7 +179,7 @@ ALTER TABLE `vote`
 -- Constraints for table `appointment`
 --
 ALTER TABLE `appointment`
-  ADD CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `comment`
@@ -185,14 +192,14 @@ ALTER TABLE `comment`
 -- Constraints for table `timeslot`
 --
 ALTER TABLE `timeslot`
-  ADD CONSTRAINT `timeslot_ibfk_1` FOREIGN KEY (`appoint_id`) REFERENCES `appointment` (`id`);
+  ADD CONSTRAINT `timeslot_ibfk_1` FOREIGN KEY (`appoint_id`) REFERENCES `appointment` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `vote`
 --
 ALTER TABLE `vote`
-  ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`id`),
-  ADD CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

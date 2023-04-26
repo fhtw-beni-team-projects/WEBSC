@@ -17,7 +17,7 @@ class requestLogic
 				if (!isset($_SESSION['user_id']))
 					return null;
 
-				$result = appoint::newAppoint($param['timeslots'], $param['title'], $param['descr'], $param['deadline'], $_SESSION['user_id']);
+				$result = appoint::newAppoint($param['timeslots'], $param['title'], $param['descr'], $param['duration'], $param['deadline'], $_SESSION['user_id']);
 				break;
 			case 'delAppoint':
 				if (!isset($_SESSION['user_id']))
