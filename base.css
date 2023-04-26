@@ -224,6 +224,7 @@ button {
   'time desc desc desc';
   height: auto;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .appointment-time {

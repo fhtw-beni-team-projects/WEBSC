@@ -1,5 +1,6 @@
 var timeslots = 0;
 
+//Block of adding OnClick functionality
 $("#sendLogin").click(login);
 $("#sendSignup").click(signup);
 $("#sendAppoint").click(newAppoint);
@@ -104,6 +105,8 @@ function newTimeslotField() {
 
 function generateAppointmentElements() {
 	var json = [1,2,3];
+
+	//ajax call to get json with appointments
 	$.ajax({
 		type: "GET",
 		url: "../service_handler.php",
@@ -120,14 +123,22 @@ function generateAppointmentElements() {
 
 	var i = 1;
 
+	//goes through all elements in json and creates an new Appointment on the website
 	json.forEach(element => {
+
+		//Could be done nicer
 		var newAppointment = document.createElement("div");
 		var timeDiv = document.createElement("div");
 		var titleDiv = document.createElement("div");
 		var descDiv = document.createElement("div");
+
+		//filling created divs with values
+		//TODO: actual json Werte verwenden
 		newAppointment.className = "appointment-entry";
 		newAppointment.id = "appointment-nr-"+i;
+		newAppointment.addEventListener("click", ()=>{openForm("appointment")});
 		document.getElementById("appointment-list").appendChild(newAppointment);
+
 		timeDiv.className = "appointment-time";
 		titleDiv.className = "appointment-title";
 		descDiv.className = "appointment-desc";
@@ -135,13 +146,16 @@ function generateAppointmentElements() {
 		titleDiv.innerHTML = "TITLE";
 		timeDiv.innerHTML = "03.09.2023 <br> 18:30"
 
+		//appending created divs to appointment entry
 		document.getElementById("appointment-nr-"+i).appendChild(timeDiv);
 		document.getElementById("appointment-nr-"+i).appendChild(titleDiv);
 		document.getElementById("appointment-nr-"+i).appendChild(descDiv);
+
 		i++;
 	});
 }
 
+//creates list of all appointments
 window.addEventListener('load', function () {
 	generateAppointmentElements();
   })
