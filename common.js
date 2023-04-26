@@ -1,9 +1,10 @@
 $("#sendLogin").on("click", login);
 $("#sendSignup").on("click", signup);
 $("#sendAppoint").on("click", newAppoint);
+$("#login-button").on("click", openLoginForm)
 
 function openLoginForm() {
-	
+	openForm("login"); 
 }
 
 function openForm(form) {
