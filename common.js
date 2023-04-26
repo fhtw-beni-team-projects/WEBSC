@@ -34,8 +34,10 @@ function login() {
     	dataType: "json",
     	success: function (response) {
 	    	$('#user-button').html(response);
-    	}        
+    	}       
 	});
+	$('#user-button').show();
+	$('#login-button').hide();
 	closeForm();
 }
 
@@ -101,19 +103,42 @@ function newTimeslotField() {
 }
 
 function generateAppointmentElements() {
-	var json = [];
+	var json = [1,2,3];
 	$.ajax({
 		type: "GET",
 		url: "../service_handler.php",
 		cache: false,
 		data: { method: "getAppointList", param: {
 			limit: Date.now(),
-		}}, // TODO: date
+		}},
 		dataType: "json",
 		success: function (response) {
-			json = response;
+			//dunno how to access data correctly
+			//json = response;
 		}
+	});
 
+	var i = 1;
+
+	json.forEach(element => {
+		var newAppointment = document.createElement("div");
+		var timeDiv = document.createElement("div");
+		var titleDiv = document.createElement("div");
+		var descDiv = document.createElement("div");
+		newAppointment.className = "appointment-entry";
+		newAppointment.id = "appointment-nr-"+i;
+		document.getElementById("appointment-list").appendChild(newAppointment);
+		timeDiv.className = "appointment-time";
+		titleDiv.className = "appointment-title";
+		descDiv.className = "appointment-desc";
+		descDiv.innerHTML = "aaaaaaaaaaa aaaaaaaaa aaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaa aaa";
+		titleDiv.innerHTML = "TITLE";
+		timeDiv.innerHTML = "03.09.2023 <br> 18:30"
+
+		document.getElementById("appointment-nr-"+i).appendChild(timeDiv);
+		document.getElementById("appointment-nr-"+i).appendChild(titleDiv);
+		document.getElementById("appointment-nr-"+i).appendChild(descDiv);
+		i++;
 	});
 }
 

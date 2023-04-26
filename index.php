@@ -15,14 +15,16 @@ session_start();
 	<link rel="stylesheet" href="base.css">
 </head>
 <body>
-<div class="darkener" id="darkener" onclick="closeForm()"></div>
-<nav class="navMenu">
-      <a id="home-button">Home</a>
-      <a id="about-button">About</a>
-	  <a id="login-button">Login</a>
-	  <a id="user-button"></a>
-      <div class="dot"></div>
+	<div class="darkener" id="darkener" onclick="closeForm()"></div>
+	<nav class="navMenu">
+    	<a id="home-button">Home</a>
+      	<a id="about-button">About</a>
+	  	<a id="login-button">Login</a>
+	  	<a id="user-button"></a>
+      	<div class="dot"></div>
     </nav>
+
+	<div id="appointment-list"></div>
 
 	<?php include "./i/login.html" ?>
 	<?php include "./i/appoint.html" ?>

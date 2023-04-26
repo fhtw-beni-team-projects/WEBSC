@@ -27,14 +27,14 @@
 
 #user-button {
   visibility: hidden;
-  position: fixed;
-  right: 2%;
+  position: sticky;
+  right:0;
 }
 
 #login-button {
   visibility: visible;
-  position: fixed;
-  right: 2%;
+  position: sticky;
+  right:0;
 }
 
 a :hover {
@@ -47,10 +47,11 @@ body {
 }
 
 .navMenu {
-  position: absolute;
+  position: sticky;
   margin-top: 2%;
   margin-left: 2%;
   cursor: pointer;
+  z-index: 5;
 }
 
 .navMenu a {
@@ -98,10 +99,10 @@ body {
 }
 
 .navMenu a:nth-child(3):hover ~ .dot {
-  -webkit-transform: translateX(1302px);
-  transform: translateX(1302px);
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
+  -webkit-transform: translateX(195px);
+  transform: translateX(195px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   opacity: 1;
 }
 
@@ -209,4 +210,39 @@ button {
 #changeForm {
   color: darkblue;
   cursor: pointer;
+}
+
+.appointment-entry {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  background: #2c3e50;
+  color: #f6f4e6;
+  display: grid;
+  grid-template-areas:
+  'time title title title'
+  'time desc desc desc';
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.appointment-time {
+    grid-area: time;
+    padding: 20px;
+    background-color: var(--yellow-lite);
+}
+
+.appointment-desc {
+  grid-area: desc;
+}
+
+.appointment-title {
+  padding-top: 5px;
+  grid-area: title;
+  font-size: 22px;
+}
+
+#appointment-list {
+  position: relative;
+  margin-top: 70px;
 }

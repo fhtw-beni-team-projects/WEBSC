@@ -10,9 +10,10 @@ class appoint
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "SELECT DISTINCT id, user_id, title, descr, deadline FROM appointment JOIN timeslot ON appointment.id=timeslot.appoint_id WHERE DATE(end_time) >= ?";
+		$sql = "SELECT * FROM appointment";
+		//$sql = "SELECT DISTINCT id, user_id, title, descr, deadline FROM appointment JOIN timeslot ON appointment.id=timeslot.appoint_id WHERE DATE(end_time) >= ?";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("s", $limit);
+		//$stmt->bind_param("s", $limit);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
