@@ -1,3 +1,5 @@
+var timeslots = 0;
+
 $("#sendLogin").on("click", login);
 $("#sendSignup").on("click", signup);
 $("#sendAppoint").on("click", newAppoint);
@@ -74,14 +76,27 @@ function newAppoint() {
 	    type: "GET",
 	    url: "../service_handler.php",
 	    cache: false,
-	    data: { method: "signup", param: form_data },
+	    data: { method: "newAppoint", param: form_data },
 	    dataType: "json",
 	    success: function (response) {
-	    	$('#user-button').html(response);
+	    	timeslots = 0;
 	    }        
 	});
 }
 
 function newTimeslotField() {
-	// TODO
+	timeslots++;
+
+	var start = document.createElement("input");
+	start.className = "popup_input formleft forminput";
+	start.type = "datetime-local";
+	start.name = "start" + timeslots
+
+	var end = document.createElement("input");
+	end.className = "popup_input formright forminput";
+	end.type = "datetime-local";
+	end.name = "start" + timeslots
+
+	$("#appoint-timeslots").append(start);
+	$("#appoint-timeslots").append(end);
 }

@@ -22,7 +22,9 @@ session_start();
 	  <a id="login-button">Login</a>
 	  <a id="user-button"></a>
       <div class="dot"></div>
-</nav>
-<?php include "./i/login.html" ?>
+    </nav>
+
+	<?php include "./i/login.html" ?>
+	<?php include "./i/appoint.html" ?>
 </body>
 </html>
