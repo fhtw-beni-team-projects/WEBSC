@@ -4,6 +4,7 @@ $("#sendLogin").click(login);
 $("#sendSignup").click(signup);
 $("#sendAppoint").click(newAppoint);
 $("#login-button").click(()=>{openForm("login")});
+$("#timeslot-prompt").click(newTimeslotField);
 
 $("#closeLogin").click(closeForm);
 $("#closeSignup").click(closeForm);
@@ -60,7 +61,7 @@ function signup() {
 function newAppoint() {
 	var form_data = { };
 	var timeslots = [ ];
-	$.each($('#signup').serializeArray(), function() {
+	$.each($('#new-appoint').serializeArray(), function() {
 		if (this.name.startsWith("option")) {
 			timeslots.push(this.value);
 		} else {
@@ -88,15 +89,15 @@ function newTimeslotField() {
 	var label = document.createElement("label");
 	label.className = "descr formleft";
 	label.for = "title";
-	label.html() = "Option&nbsp;" + timeslots + ":";
+	label.innerHTML = "Option&nbsp;" + timeslots + ":";
 
 	var option = document.createElement("input");
 	option.className = "popup_input formright forminput";
 	option.type = "datetime-local";
 	option.name = "option" + timeslots
 
-	$("#appoint-timeslots").append(label);
-	$("#appoint-timeslots").append(option);
+	$("#appoint-inputs").append(label);
+	$("#appoint-inputs").append(option);
 }
 
 function generateAppointmentElements() {

@@ -3,7 +3,7 @@
 class appoint
 {
 
-	public static function getList($limit = date("Y-m-d"))
+	public static function getList($limit = NULL)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {
@@ -13,7 +13,7 @@ class appoint
 		$sql = "SELECT DISTINCT id, user_id, title, descr, deadline FROM appointment JOIN timeslot ON appointment.id=timeslot.appoint_id WHERE DATE(end_time) >= ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $limit);
-		$stmt->execute()
+		$stmt->execute();
 
 		$result = $stmt->get_result();
 
@@ -35,13 +35,12 @@ class appoint
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "INSERT INTO appointment (user_id, title, descr, duration, deadline) VALUES (?, ?, ?, ?, ?);"
-				"SELECT id FROM appointment WHERE id = SCOPE_IDENTITY();";
+		$sql = "INSERT INTO appointment (user_id, title, descr, duration, deadline) VALUES (?, ?, ?, ?, ?)";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("issii", $user_id, $title, $descr, $duration, $deadline);
+		$stmt->bind_param("issis", $user_id, $title, $descr, $duration, $deadline);
 	
 		$success = $stmt->execute();
-		$result = $stmt->get_result()->fetch_assoc();
+		$id = $stmt->insert_id;
 		$stmt->close();
 
 		if (!$success)
@@ -50,12 +49,12 @@ class appoint
 		$unsuccess = !$success;
 
 		foreach ($timeslot as $timeslots) {
-			$unsuccess += !($this->newTimeslot($timeslot, $result['id']));
+			$unsuccess += !(self::newTimeslot($timeslot, $id));
 		}
 
-		$unsuccess += !($this->newTimeslot(NULL, $result['id']));
+		$unsuccess += !(self::newTimeslot(NULL, $id));
 
-		return (bool) !$unsuccess
+		return (bool) !$unsuccess;
 	}
 
 	public static function delAppoint($id, $user_id)
@@ -71,7 +70,7 @@ class appoint
 	
 		$success = $stmt->execute();
 
-		return $success
+		return $success;
 	}
 
 	public static function getAppoint($id)
@@ -84,7 +83,7 @@ class appoint
 		$sql = "SELECT * FROM appointment WHERE id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
-		$stmt->execute()
+		$stmt->execute();
 
 		$result = $stmt->get_result()->fetch_assoc();
 		$stmt->close();
@@ -107,12 +106,12 @@ class appoint
 		$sql = "SELECT deadline FROM appointment WHERE id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
-		$stmt->execute()
+		$stmt->execute();
 
 		$result = $stmt->get_result()->fetch_assoc();
 		$stmt->close();
 
-		$open = timestamp() <= $result['timestamp']
+		$open = timestamp() <= $result['timestamp'];
 
 		$conn->close();
 
@@ -129,7 +128,7 @@ class appoint
 		$sql = "SELECT appoint_id FROM timeslot WHERE id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
-		$stmt->execute()
+		$stmt->execute();
 
 		$result = $stmt->get_result()->fetch_assoc();
 
@@ -148,11 +147,11 @@ class appoint
 
 		$sql = "INSERT INTO timeslot (appoint_id, start_time) VALUES (?, ?)";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("ii", $appoint_id, $start);
+		$stmt->bind_param("is", $appoint_id, $start);
 	
 		$success = $stmt->execute();
 
-		return $success
+		return $success;
 	}
 
 	private static function getTimeslots($id, $votes = false)
@@ -165,7 +164,7 @@ class appoint
 		$sql = "SELECT * FROM timeslot WHERE appoint_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
-		$stmt->execute()
+		$stmt->execute();
 
 		$result = $stmt->get_result();
 
@@ -196,7 +195,7 @@ class appoint
 	
 		$success = $stmt->execute();
 
-		return $success
+		return $success;
 	}
 
 	private static function delVote($id, $user_id)
@@ -212,7 +211,7 @@ class appoint
 	
 		$success = $stmt->execute();
 
-		return $success
+		return $success;
 	}
 
 	private static function getVotes($id)
@@ -225,7 +224,7 @@ class appoint
 		$sql = "SELECT * FROM votes WHERE timeslot_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
-		$stmt->execute()
+		$stmt->execute();
 
 		$result = $stmt->get_result();
 
@@ -247,7 +246,7 @@ class appoint
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "INSERT INTO comment (appoint_id, user_id, content) VALUES (?, ?, ?);"
+		$sql = "INSERT INTO comment (appoint_id, user_id, content) VALUES (?, ?, ?);".
 				"SELECT * FROM comment WHERE id = SCOPE_IDENTITY();";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("iis", $appoint_id, $timeslot_id, $content);
@@ -268,7 +267,7 @@ class appoint
 		$sql = "SELECT * FROM comment WHERE appoint_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
-		$stmt->execute()
+		$stmt->execute();
 
 		$result = [];
 		while($row = $stmt->get_result()->fetch_assoc()) {
