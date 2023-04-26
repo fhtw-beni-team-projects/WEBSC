@@ -98,3 +98,24 @@ function newTimeslotField() {
 	$("#appoint-timeslots").append(label);
 	$("#appoint-timeslots").append(option);
 }
+
+function generateAppointmentElements() {
+	var json = [];
+	$.ajax({
+		type: "GET",
+		url: "../service_handler.php",
+		cache: false,
+		data: { method: "getAppointList", param: {
+			limit: Date.now(),
+		}}, // TODO: date
+		dataType: "json",
+		success: function (response) {
+			json = response;
+		}
+
+	});
+}
+
+window.addEventListener('load', function () {
+	generateAppointmentElements();
+  })
