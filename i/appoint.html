@@ -1,13 +1,15 @@
 <form class="popup" id="new-appoint">
-    <div class="formcontent grid">
+    <div class="formcontent grid" id="appoint-inputs">
 
         <label class="descr formleft" for="title">Title:</label><input class="popup_input formright forminput" type="text" name="title" />
         <label class="descr formleft" for="descr">Descr:</label><input class="popup_input formright forminput" type="text" name="descr" />
         <label class="descr formleft" for="deadline">Deadline:</label><input class="popup_input formright forminput" type="datetime-local" name="deadline" />
 
     </div>
+    <div class="formcontent grid equal" id="appoint-timeslots">
+    </div>
     <div class="formcontent grid equal">
-        <p class="formtext formfull" id="signup-prompt"><a id="addTimeslot">Add&nbsp;a&nbsp;timeslot</a></p>
+        <p class="formtext formfull" id="timeslot-prompt"><a id="addTimeslot">Add&nbsp;a&nbsp;timeslot</a></p>
 
         <button type="button" class="btn formleft" id="closeAppoint"><i class="far fa-window-close"></i>&nbsp;Cancel</button>
         <button type="button" class="btn formright" id="sendAppoint"><i class="fas fa-sign-in-alt"></i>&nbsp;Create</button>

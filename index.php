@@ -15,7 +15,7 @@ session_start();
 	<link rel="stylesheet" href="base.css">
 </head>
 <body>
-<div class="darkener" id="darkener" onclick="closeForm()">
+<div class="darkener" id="darkener" onclick="closeForm()"></div>
 <nav class="navMenu">
       <a id="home-button">Home</a>
       <a id="about-button">About</a>
@@ -25,6 +25,6 @@ session_start();
     </nav>
 
 	<?php include "./i/login.html" ?>
-</div>
+	<?php include "./i/appoint.html" ?>
 </body>
 </html>
