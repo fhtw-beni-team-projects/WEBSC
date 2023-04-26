@@ -3,12 +3,8 @@ var timeslots = 0;
 $("#sendLogin").click(login);
 $("#sendSignup").click(signup);
 $("#sendAppoint").click(newAppoint);
-$("#login-button").click(openLoginForm)
+$("#login-button").click(()=>{openForm("login")});
 $("#timeslot-prompt").click(newTimeslotField);
-
-function openLoginForm() {
-	openForm("login"); 
-}
 
 function openForm(form) {
 	$('#' + form + ", .darkener").show();
@@ -34,6 +30,7 @@ function login() {
 	    	$('#user-button').html(response);
     	}        
 	});
+	closeForm();
 }
 
 function signup() {
@@ -52,6 +49,7 @@ function signup() {
 	    	$('#user-button').html(response);
 	    }        
 	});
+	closeForm();
 }
 
 function newAppoint() {
