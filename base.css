@@ -265,3 +265,8 @@ button {
   background: #00000088;
   z-index: 6;
 }
+
+#appoint-popup {
+  color: #f6f4e6;
+  /* TODO: grid for elements inside of popup */
+}
