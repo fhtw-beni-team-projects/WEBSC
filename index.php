@@ -10,6 +10,7 @@ session_start();
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Not doodle</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/cd39ba936d.js" crossorigin="anonymous"></script>
 	<script defer src="./common.js"></script>
 	<link rel="stylesheet" href="base.css">
 </head>

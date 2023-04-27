@@ -89,8 +89,8 @@ class appoint
 		$result = $stmt->get_result()->fetch_assoc();
 		$stmt->close();
 
-		$result['timeslot'] = $this->getTimeslots($id, true);
-		$result['comments'] = $this->getComments($id);
+		$result['timeslot'] = self::getTimeslots($id, true);
+		$result['comments'] = self::getComments($id);
 
 		$conn->close();
 
@@ -172,7 +172,7 @@ class appoint
 		$array = array();
 		while($row = $result->fetch_assoc()) {
 			if ($votes) {
-				$row['votes'] = getVotes($row['id']);
+				$row['votes'] = self::getVotes($row['id']);
 			}
 			$array[] = $row;
 		}
@@ -222,7 +222,7 @@ class appoint
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "SELECT * FROM votes WHERE timeslot_id = ?";
+		$sql = "SELECT * FROM vote WHERE timeslot_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
 		$stmt->execute();

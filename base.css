@@ -26,13 +26,12 @@
 }
 
 #user-button {
-  visibility: hidden;
+  display: none;
   position: sticky;
   right:0;
 }
 
 #login-button {
-  visibility: visible;
   position: sticky;
   right:0;
 }
@@ -167,7 +166,7 @@ body {
   border-radius: 5px;
   margin: 10px;
   display: none;
-  z-index: 4;
+  z-index: 7;
   padding: 25px;
 }
 
@@ -264,5 +263,5 @@ button {
   width: 100vw;
   height: 100vh;
   background: #00000088;
-  z-index: 3;
+  z-index: 6;
 }
