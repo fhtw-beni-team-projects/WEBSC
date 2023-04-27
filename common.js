@@ -177,6 +177,7 @@ function appointListPrepend(element) {
 	var timeDiv = document.createElement("div");
 	var titleDiv = document.createElement("div");
 	var descDiv = document.createElement("div");
+	var votecountDiv = document.createElement("div");
 
 	//filling created divs with values
 	//TODO: actual json Werte verwenden
@@ -187,14 +188,18 @@ function appointListPrepend(element) {
 	timeDiv.className = "appointment-time";
 	titleDiv.className = "appointment-title";
 	descDiv.className = "appointment-desc";
+	votecountDiv.className = "appointment-votecount";
 	descDiv.innerHTML = element['descr'];
 	titleDiv.innerHTML = element['title'];
-	timeDiv.innerHTML = "Open until:<br>" + element['deadline'];
+	timeDiv.innerHTML = "Open&nbsp;until:<br>" + element['deadline'];
+	votecountDiv.innerHTML = element['votecount'] + "&nbsp;votes"
+
 
 	//appending created divs to appointment entry
 	newAppointment.appendChild(timeDiv);
 	newAppointment.appendChild(titleDiv);
 	newAppointment.appendChild(descDiv);
+	newAppointment.appendChild(votecountDiv);
 
 	$('#appointment-list').prepend(newAppointment);
 }
@@ -210,6 +215,9 @@ function loadFullAppoint(id) {
 	    }},
 	    dataType: "json",
 	    success: function (response) {
+	    	var vote_count = response['votecount'];
+
+
 	    	var popup = document.createElement("form");
 	    	popup.id = "appoint-popup";
 	    	popup.className = "popup";
@@ -235,30 +243,40 @@ function loadFullAppoint(id) {
 
 	    	var time_grid = document.createElement("div");
 	    	time_grid.className = "formcontent grid";
+
 	    	var p4 = document.createElement("p");
-	    	p4.innerHTML = "Select&nbsp;your&nbsp;available&nbsp;timeslots";
-	    	p2.className = "formtext formleft";
+	    	p4.innerHTML = "Votes";
+	    	p4.className = "formtext formleft";
 	    	var p5 = document.createElement("p");
-	    	p5.className = "formtext formleft";
+	    	p5.innerHTML = "Select&nbsp;your&nbsp;available&nbsp;timeslots";
+	    	p5.className = "formtext formright";
+	    	var p6 = document.createElement("p");
+	    	p6.className = "formtext formrightright";
 	    	time_grid.append(p4);
 	    	time_grid.append(p5);
+	    	time_grid.append(p6);
 
 	    	$.each(response['timeslot'], function() {
 	    		if (this.start_time == null)
 	    			return;
+	    		var votes = document.createElement("div")
+	    		votes.className = "descr formleft";
+	    		votes.innerHTML = this.votecount + "/" + vote_count;
 	    		var time = document.createElement("label");
-	    		time.className = "descr formleft";
+	    		time.className = "descr formright";
 	    		time.for = "time" + this.id;
 	    		time.innerHTML = this.start_time;
 	    		var check = document.createElement("input");
-	    		check.className = "popup_input formright forminput";
+	    		check.className = "popup_input formrightright forminput";
 	    		check.type = "checkbox";
 	    		check.name = "time" + this.id;
 	    		check.value = this.id;
 
+	    		time_grid.append(votes);
 	    		time_grid.append(time);
 	    		time_grid.append(check);
 	    	});
+
 	    	var hidden = document.createElement("input");
 	    	hidden.type = "hidden";
 	    	hidden.name = "appoint_id";

@@ -20,6 +20,7 @@ class appoint
 
 		$array = array();
 		while($row = $result->fetch_assoc()) {
+			$row['votecount'] = self::getVoteCount($row['id']);
 			$array[] = $row;
 		}
 
@@ -91,6 +92,7 @@ class appoint
 
 		$result['timeslot'] = self::getTimeslots($id, true);
 		$result['comments'] = self::getComments($id);
+		$result['votecount'] = self::getVoteCount($id);
 
 		$conn->close();
 
@@ -139,7 +141,7 @@ class appoint
 		return $result['appoint_id'];
 	}
 
-	private static function newTimeslot($start, $appoint_id)
+	private static function newTimeslots($start, $appoint_id)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {
@@ -162,7 +164,7 @@ class appoint
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "SELECT * FROM timeslot WHERE appoint_id = ?";
+		$sql = "SELECT t.*, count(DISTINCT v.user_id) AS votecount FROM timeslot t LEFT JOIN vote v ON t.id = v.timeslot_id WHERE t.appoint_id = ? GROUP BY t.id";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
 		$stmt->execute();
@@ -257,6 +259,23 @@ class appoint
 		return $array;
 	}
 
+	private static function getVoteCount($id)
+	{
+		$conn = new mysqli_init();
+		if ($conn->connect_error) {
+			die("Connection failed: ".$conn->connect_error);
+		}
+
+		$sql = "SELECT count(DISTINCT user_id) AS votes FROM vote v JOIN timeslot t ON v.timeslot_id=t.id WHERE t.appoint_id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+
+		$result = $stmt->get_result();
+
+		return $result->fetch_row()[0];
+	}
+
 	public static function newComment($content, $appoint_id, $user_id)
 	{
 		$conn = new mysqli_init();
@@ -264,15 +283,14 @@ class appoint
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "INSERT INTO comment (appoint_id, user_id, content) VALUES (?, ?, ?);".
-				"SELECT * FROM comment WHERE id = SCOPE_IDENTITY();";
+		$sql = "INSERT INTO comment (appoint_id, user_id, content) VALUES (?, ?, ?);";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("iis", $appoint_id, $timeslot_id, $content);
 	
 		$stmt->execute();
-		$result = $stmt->get_result()->fetch_assoc();
+		$id = $stmt->insert_id;
 
-		return $result;
+		return $id;
 	}
 
 	private static function getComments($id)

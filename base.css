@@ -230,13 +230,13 @@ button {
   color: #f6f4e6;
   display: grid;
   grid-template-areas:
-  'time title title title'
-  'time desc desc desc';
+  'time title title title votes'
+  'time desc desc desc votes';
   height: auto;
   margin-bottom: 20px;
   cursor: pointer;
   border-radius: 12px;
-  box-shadow: 8px 8px 4px black;
+  box-shadow: 6px 6px 4px black;
 }
 
 .appointment-time {
@@ -256,6 +256,15 @@ button {
   padding-top: 5px;
   grid-area: title;
   font-size: 22px;
+}
+
+.appointment-votecount {
+  grid-area: votes;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: var(--yellow-lite);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 #appointment-list {
