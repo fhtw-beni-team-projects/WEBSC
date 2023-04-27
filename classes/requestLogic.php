@@ -49,8 +49,10 @@ class requestLogic
 				$result = user::getName($param['id']);
 				break;
 			case 'newComment':
-				if (!isset($_SESSION['user_id']))
-					return null;
+				if (!isset($_SESSION['user_id'])) {
+					$result = null;
+					break;
+				}
 
 				$result = appoint::newComment($param['content'], $param['appoint_id'], $_SESSION['user_id']);
 				break;

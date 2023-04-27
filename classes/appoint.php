@@ -91,7 +91,7 @@ class appoint
 		$stmt->close();
 
 		$result['timeslot'] = self::getTimeslots($id, true);
-		$result['comments'] = self::getComments($id);
+		$result['comment'] = self::getComments($id);
 		$result['votecount'] = self::getVoteCount($id);
 
 		$conn->close();
@@ -285,7 +285,7 @@ class appoint
 
 		$sql = "INSERT INTO comment (appoint_id, user_id, content) VALUES (?, ?, ?);";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("iis", $appoint_id, $timeslot_id, $content);
+		$stmt->bind_param("iis", $appoint_id, $user_id, $content);
 	
 		$stmt->execute();
 		$id = $stmt->insert_id;
@@ -304,15 +304,16 @@ class appoint
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
 		$stmt->execute();
+		$result = $stmt->get_result();
 
-		$result = [];
-		while($row = $stmt->get_result()->fetch_assoc()) {
-		    $result[] = $row;
+		$comments = [];
+		while($row = $result->fetch_assoc()) {
+		    $comments[] = $row;
 		}
 
 		$stmt->close();
 		$conn->close();
 
-		return $result;
+		return $comments;
 	}
 }
