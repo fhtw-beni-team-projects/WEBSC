@@ -229,7 +229,8 @@ button {
 
 .appointment-time {
     grid-area: time;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     background-color: var(--yellow-lite);
 }
 
