@@ -316,8 +316,7 @@ function loadFullAppoint(id) {
 			btn_comment.type = "button";
 			btn_comment.className = "btn formfull";
 			btn_comment.id = "new-comment-btn";
-			btn_comment.innerHTML = "Send&nbsp;comment"
-			btn_comment.click(()=>{addComment(response['id'])});
+			btn_comment.innerHTML = "Send&nbsp;comment";
 
 			comment_grid.append(text_area);
 			comment_grid.append(btn_comment);
@@ -344,6 +343,7 @@ function loadFullAppoint(id) {
 			popup.append(comment_grid);
 
 			document.body.append(popup);
+			$('#new-comment-btn').click(()=>{addComment(response['id'])});
 	   		openForm("appoint-popup");
 		}
 	});
