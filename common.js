@@ -20,6 +20,12 @@ function openForm(form) {
 function closeForm() {
 	$(".popup, .darkener").hide();
 }
+
+function deleteAppointPopup() {
+	$("#appoint-popup").remove();
+	$(".darkener").hide();
+}
+
 function isLoggedIn() {
 	$.ajax({
     	type: "GET",
@@ -157,7 +163,7 @@ function appointListPrepend(element) {
 	//TODO: actual json Werte verwenden
 	newAppointment.className = "appointment-entry";
 	newAppointment.id = "appointment-nr-" + listLength;
-	newAppointment.addEventListener("click", ()=>{openForm("appointment")});
+	newAppointment.addEventListener("click", ()=>{loadFullAppoint(element['id'])});
 
 	timeDiv.className = "appointment-time";
 	titleDiv.className = "appointment-title";
@@ -172,6 +178,61 @@ function appointListPrepend(element) {
 	newAppointment.appendChild(descDiv);
 
 	$('#appointment-list').prepend(newAppointment);
+}
+
+function loadFullAppoint(id) {
+
+	$.ajax({
+	    type: "GET",
+	    url: "../service_handler.php",
+	    cache: false,
+	    data: { method: "getFullAppoint", param: {
+	        id: id
+	    }},
+	    dataType: "json",
+	    success: function (response) {
+	    	var popup = document.createElement("div");
+	    	popup.id = "appoint-popup";
+	    	popup.className = "popup";
+
+	    	var grid = document.createElement("div");
+	    	grid.className = "formcontent grid";
+	    	var h = document.createElement("h3").innerHTML = response['title'];
+	    	grid.append(h);
+	    	var p1 = document.createElement("p");
+	    	p1.innerHTML = response['descr'];
+	    	grid.append(p1);
+	    	var p2 = document.createElement("p");
+	    	p2.innerHTML = response['duration'] + "&nbsp;Minutes";
+	    	grid.append(p2);
+	    	var p3 = document.createElement("p");
+	    	p3.innerHTML = "Open&nbsp;until&nbsp;" + response['deadline'];
+	    	grid.append(p3);
+
+	    	var btn_grid = document.createElement("div");
+	    	btn_grid.className = "formcontent grid equal";
+
+	    	var close_btn = document.createElement("button");
+	    	close_btn.type = "button";
+	    	close_btn.className = "btn formleft";
+	    	close_btn.id = "closeAppointFull";
+	    	close_btn.innerHTML = '<i class="fa-solid fa-square-xmark"></i>&nbsp;Cancel';
+
+	    	var vote_btn = document.createElement("button");
+	    	vote_btn.type = "button";
+	    	vote_btn.className = "btn formright";
+	    	vote_btn.id = "sendVotes";
+	    	vote_btn.innerHTML = '<i class="fa-solid fa-check-to-slot"></i>&nbsp;Vote';
+
+	    	btn_grid.append(close_btn);
+	    	btn_grid.append(vote_btn);
+	    	popup.append(grid);
+	    	popup.append(btn_grid);
+
+	    	document.body.append(popup);
+	   		openForm("appoint-popup");
+	    }
+	});
 }
 
 //creates list of all appointments
