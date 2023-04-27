@@ -338,6 +338,7 @@ function loadFullAppoint(id) {
 			}
 
 			var comment_grid = document.createElement("div");
+			comment_grid.id = "comment_grid";
 	  		comment_grid.className = "formcontent grid equal";
 	  
 			var text_area = document.createElement("textarea");
@@ -419,6 +420,19 @@ function addComment(id) {
 		}},
 		dataType: "json",
 		success: function (response) {
+			var comment = document.createElement("div");
+			comment.className = "comment formfull";
+
+			var comment_info = document.createElement("div");
+			comment_info.className = "info"
+			comment_info.innerHTML = "Writen&nbsp;by " + response['fname'] + "&nbsp;" + response['lname'] + " on&nbsp;" + response['timestamp'];
+
+			var comment_main = document.createElement("p");
+			comment_main.innerHTML = response['content'];
+
+			comment.append(comment_info);
+			comment.append(comment_main);
+			$('#comment_grid').append(comment);
 		}		
 	});
 }

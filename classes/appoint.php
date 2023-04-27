@@ -292,7 +292,7 @@ class appoint
 		$stmt->execute();
 		$id = $stmt->insert_id;
 
-		return $id;
+		return self::getComment($id);
 	}
 
 	private static function getComments($id)
@@ -317,5 +317,24 @@ class appoint
 		$conn->close();
 
 		return $comments;
+	}
+
+	private static function getComment($comment_id)
+	{
+		$conn = new mysqli_init();
+		if ($conn->connect_error) {
+			die("Connection failed: ".$conn->connect_error);
+		}
+
+		$sql = "SELECT c.*, u.fname, u.lname FROM comment c JOIN user u ON c.user_id = u.id WHERE c.id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("i", $comment_id);
+		$stmt->execute();
+		$result = $stmt->get_result()->fetch_assoc();
+
+		$stmt->close();
+		$conn->close();
+
+		return $result;
 	}
 }
