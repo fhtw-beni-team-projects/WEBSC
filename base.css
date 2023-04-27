@@ -138,8 +138,8 @@ body {
 }
 
 .btn {
-  background: #fddb3a;
-  color: #272727;
+  background: var(--yellow-lite);
+  color: #f6f4e6;
   padding: 10px;
   margin: 10px;
   border: none;
@@ -163,7 +163,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 1px 1px 3px;
-  background: var(--bg-main);
+  background: #2c3e50;
   border-radius: 5px;
   margin: 10px;
   display: none;
@@ -197,18 +197,22 @@ body {
 }
 
 button {
-  color: #fddb3a;
+  color: var(--yellow-lite);
   background: inherit;
   border: inherit;
   font: inherit;
 }
 
-#loginpromt {
-  color:#2c3e50;  
+#login-prompt {
+  color:#f6f4e6;  
+}
+
+#signup-prompt {
+  color:#f6f4e6;  
 }
 
 #changeForm {
-  color: darkblue;
+  color: #fddb3a;
   cursor: pointer;
 }
 
