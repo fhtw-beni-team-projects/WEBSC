@@ -231,14 +231,14 @@ button {
   color: #f6f4e6;
   display: grid;
   grid-template-areas:
-  'time title title title votes'
-  'time desc desc desc votes';
+  'time title title title title votes'
+  'time desc desc desc desc votes';
   height: auto;
   margin-bottom: 20px;
   cursor: pointer;
   border-radius: 12px;
   box-shadow: 6px 6px 4px black;
-  grid-template-columns: 20%;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
 }
 
 .appointment-time {
@@ -248,6 +248,7 @@ button {
     background-color: var(--yellow-lite);
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
+    font-weight: 600;
 }
 
 .appointment-desc {
@@ -262,12 +263,15 @@ button {
 }
 
 .appointment-votecount {
-  grid-area: votes;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background-color: var(--yellow-lite);
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+    grid-area: votes;
+    padding-top: 25px;
+    padding-bottom: 20px;
+    background-color: var(--yellow-lite);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    font-weight: 900;
+    font-size: 18px;
+    text-align: center;
 }
 
 #appointment-list {
