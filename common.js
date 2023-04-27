@@ -273,14 +273,14 @@ function loadFullAppoint(id) {
 	    	close_btn.className = "btn formleft";
 	    	close_btn.id = "close";
 	    	close_btn.innerHTML = '<i class="fa-solid fa-square-xmark"></i>&nbsp;Cancel';
-			close_btn.addEventListener("click", ()=>{closeForm()});
+			close_btn.addEventListener("click", closeForm);
 
 	    	var vote_btn = document.createElement("button");
 	    	vote_btn.type = "button";
 	    	vote_btn.className = "btn formright";
 	    	vote_btn.id = "sendVotes";
 	    	vote_btn.innerHTML = '<i class="fa-solid fa-check-to-slot"></i>&nbsp;Vote';
-			close_btn.addEventListener("click", ()=>{changeVotes()});
+			vote_btn.addEventListener("click", changeVotes);
 
 	    	btn_grid.append(close_btn);
 	    	btn_grid.append(vote_btn);
