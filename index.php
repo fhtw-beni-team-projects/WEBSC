@@ -21,6 +21,7 @@ session_start();
       	<a id="about-button">About</a>
 	  	<a id="login-button">Login</a>
 	  	<a id="user-button"></a>
+	  	<a id="logout-button">Logout</a>
       	<div class="dot"></div>
     </nav>
 

@@ -31,6 +31,12 @@
   right:0;
 }
 
+#logout-button {
+  display: none;
+  position: sticky;
+  right:0;
+}
+
 #login-button {
   position: sticky;
   right:0;

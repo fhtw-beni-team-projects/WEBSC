@@ -3,14 +3,14 @@ var listLength = 0;
 
 //Block of adding OnClick functionality
 $("#sendLogin").click(login);
+$("#sendLogout").click(logout);
 $("#sendSignup").click(signup);
 $("#sendAppoint").click(newAppoint);
 $("#login-button").click(()=>{openForm("login")});
+$("#logout-button").click(()=>{openForm("logout")});
 $("#timeslot-prompt").click(newTimeslotField);
 
-$("#closeLogin").click(closeForm);
-$("#closeSignup").click(closeForm);
-$("#closeAppoint").click(closeForm);
+$(".close").click(closeForm);
 $("#changeForm").click(()=>{openForm("signup")})
 
 function openForm(form) {
@@ -19,11 +19,7 @@ function openForm(form) {
 
 function closeForm() {
 	$(".popup, .darkener").hide();
-}
-
-function deleteAppointPopup() {
 	$("#appoint-popup").remove();
-	$(".darkener").hide();
 }
 
 function isLoggedIn() {
@@ -38,6 +34,7 @@ function isLoggedIn() {
 	    		$('#user-button').html(response);
 				$('#user-button').show();
 				$('#login-button').hide();
+				$('#logout-button').show();
 	    	}
     	}
 	});
@@ -59,6 +56,25 @@ function login() {
 	    	$('#user-button').html(response);
 			$('#user-button').show();
 			$('#login-button').hide();
+			$('#logout-button').show();
+    	}       
+	});
+	closeForm();
+}
+
+function logout() {
+	var form_data = { };
+
+	$.ajax({
+    	type: "GET",
+    	url: "../service_handler.php",
+    	cache: false,
+    	data: { method: "logout", param: 0 },
+    	dataType: "json",
+    	success: function (response) {
+			$('#user-button').hide();
+			$('#login-button').show();
+			$('#logout-button').hide();
     	}       
 	});
 	closeForm();
@@ -78,6 +94,9 @@ function signup() {
 	    dataType: "json",
 	    success: function (response) {
 	    	$('#user-button').html(response);
+			$('#user-button').show();
+			$('#login-button').hide();
+			$('#logout-button').show();
 	    }        
 	});
 	closeForm();
@@ -215,9 +234,9 @@ function loadFullAppoint(id) {
 	    	var close_btn = document.createElement("button");
 	    	close_btn.type = "button";
 	    	close_btn.className = "btn formleft";
-	    	close_btn.id = "closeAppointFull";
+	    	close_btn.id = "close";
 	    	close_btn.innerHTML = '<i class="fa-solid fa-square-xmark"></i>&nbsp;Cancel';
-			close_btn.addEventListener("click", ()=>{deleteAppointPopup()})
+			close_btn.addEventListener("click", ()=>{closeForm()})
 
 	    	var vote_btn = document.createElement("button");
 	    	vote_btn.type = "button";
