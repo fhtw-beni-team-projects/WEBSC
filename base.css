@@ -290,3 +290,19 @@ button {
 #logout-prompt {
   color: #f6f4e6;
 }
+
+.comment {
+  background: var(--bg-main);
+  padding: 25px;
+  margin: 10px 0 10px 0;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.info {
+  color: var(--color-main-lite);
+  font-size: 12px;
+  float: right;
+  margin: 0;
+  z-index: 2
+}

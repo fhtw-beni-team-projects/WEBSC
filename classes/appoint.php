@@ -300,7 +300,7 @@ class appoint
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "SELECT * FROM comment WHERE appoint_id = ?";
+		$sql = "SELECT c.*, u.fname, u.lname FROM comment c JOIN user u ON c.user_id = u.id WHERE appoint_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $id);
 		$stmt->execute();

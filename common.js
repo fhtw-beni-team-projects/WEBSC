@@ -321,10 +321,18 @@ function loadFullAppoint(id) {
 			comment_grid.append(btn_comment);
 
 			$.each(response['comment'], function() {
-				var comment = document.createElement("div")
-				comment.className = "descr formfull";
-				comment.innerHTML = this.content;
+				var comment = document.createElement("div");
+				comment.className = "comment formfull";
 
+				var comment_info = document.createElement("div");
+				comment_info.className = "info"
+				comment_info.innerHTML = "Writen&nbsp;by " + this.fname + "&nbsp;" + this.lname + " on&nbsp;" + this.timestamp;
+
+				var comment_main = document.createElement("p");
+				comment_main.innerHTML = this.content;
+
+				comment.append(comment_info);
+				comment.append(comment_main);
 				comment_grid.append(comment);
 			});
 
