@@ -95,6 +95,6 @@ class user
 		$stmt->close();
 		$conn->close();
 
-		return $result['fname'] . ' ' . $result['lname'];
+		return $result['fname'] . '&nbsp;' . $result['lname'];
 	}
 }

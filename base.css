@@ -26,13 +26,12 @@
 }
 
 #user-button {
-  visibility: hidden;
+  display: none;
   position: sticky;
   right:0;
 }
 
 #login-button {
-  visibility: visible;
   position: sticky;
   right:0;
 }
