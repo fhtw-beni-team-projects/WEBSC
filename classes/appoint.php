@@ -112,7 +112,7 @@ class appoint
 		$result = $stmt->get_result()->fetch_assoc();
 		$stmt->close();
 
-		$open = timestamp() <= $result['timestamp'];
+		$open = new DateTime() <= new DateTime($result['timestamp']);
 
 		$conn->close();
 
@@ -183,7 +183,24 @@ class appoint
 		return $array;
 	}
 
-	private static function newVote($timeslot_id, $user_id)
+	public static function getNullTime($appoint_id)
+	{
+		$conn = new mysqli_init();
+		if ($conn->connect_error) {
+			die("Connection failed: ".$conn->connect_error);
+		}
+
+		$sql = "SELECT id FROM timeslot WHERE appoint_id = ? AND start_time IS NULL";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("i", $appoint_id);
+		$stmt->execute();
+	
+		$result = $stmt->get_result();
+
+		return $result->fetch_row()[0];
+	}
+
+	public static function addVote($timeslot_id, $user_id)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {
@@ -199,16 +216,16 @@ class appoint
 		return $success;
 	}
 
-	private static function delVote($id, $user_id)
+	public static function resetVotes($appoint_id, $user_id)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {
 			die("Connection failed: ".$conn->connect_error);
 		}
 
-		$sql = "DELETE FROM vote WHERE id = ? AND user_id = ?";
+		$sql = "DELETE vote FROM vote LEFT JOIN timeslot ON vote.timeslot_id=timeslot.id WHERE timeslot.appoint_id = ? AND vote.user_id = ?;";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("ii", $id, $user_id);
+		$stmt->bind_param("ii", $appoint_id, $user_id);
 	
 		$success = $stmt->execute();
 
@@ -240,7 +257,7 @@ class appoint
 		return $array;
 	}
 
-	private static function newComment($content, $appoint_id, $user_id)
+	public static function newComment($content, $appoint_id, $user_id)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {

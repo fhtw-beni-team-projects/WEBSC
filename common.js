@@ -210,23 +210,60 @@ function loadFullAppoint(id) {
 	    }},
 	    dataType: "json",
 	    success: function (response) {
-	    	var popup = document.createElement("div");
+	    	var popup = document.createElement("form");
 	    	popup.id = "appoint-popup";
 	    	popup.className = "popup";
 
 	    	var grid = document.createElement("div");
 	    	grid.className = "formcontent grid";
-	    	var h = document.createElement("h3").innerHTML = response['title'];
+	    	var h = document.createElement("h3");
+	    	h.innerHTML = response['title'];
+	    	h.className = "formtext formfull";
 	    	grid.append(h);
 	    	var p1 = document.createElement("p");
 	    	p1.innerHTML = response['descr'];
+	    	p1.className = "formtext formfull";
 	    	grid.append(p1);
 	    	var p2 = document.createElement("p");
 	    	p2.innerHTML = response['duration'] + "&nbsp;Minutes";
+	    	p2.className = "formtext formfull";
 	    	grid.append(p2);
 	    	var p3 = document.createElement("p");
-	    	p3.innerHTML = "Open&nbsp;until&nbsp;" + response['deadline'];
+	    	p3.innerHTML = "Voting&nbsp;closes&nbsp;on&nbsp;" + response['deadline'];
+	    	p3.className = "formtext formfull";
 	    	grid.append(p3);
+
+	    	var time_grid = document.createElement("div");
+	    	time_grid.className = "formcontent grid";
+	    	var p4 = document.createElement("p");
+	    	p4.innerHTML = "Select&nbsp;your&nbsp;available&nbsp;timeslots";
+	    	p2.className = "formtext formleft";
+	    	var p5 = document.createElement("p");
+	    	p5.className = "formtext formleft";
+	    	time_grid.append(p4);
+	    	time_grid.append(p5);
+
+	    	$.each(response['timeslot'], function() {
+	    		if (this.start_time == null)
+	    			return;
+	    		var time = document.createElement("label");
+	    		time.className = "descr formleft";
+	    		time.for = "time" + this.id;
+	    		time.innerHTML = this.start_time;
+	    		var check = document.createElement("input");
+	    		check.className = "popup_input formright forminput";
+	    		check.type = "checkbox";
+	    		check.name = "time" + this.id;
+	    		check.value = this.id;
+
+	    		time_grid.append(time);
+	    		time_grid.append(check);
+	    	});
+	    	var hidden = document.createElement("input");
+	    	hidden.type = "hidden";
+	    	hidden.name = "appoint_id";
+	    	hidden.value = response['id'];
+	    	time_grid.append(hidden);
 
 	    	var btn_grid = document.createElement("div");
 	    	btn_grid.className = "formcontent grid equal";
@@ -236,23 +273,50 @@ function loadFullAppoint(id) {
 	    	close_btn.className = "btn formleft";
 	    	close_btn.id = "close";
 	    	close_btn.innerHTML = '<i class="fa-solid fa-square-xmark"></i>&nbsp;Cancel';
-			close_btn.addEventListener("click", ()=>{closeForm()})
+			close_btn.addEventListener("click", ()=>{closeForm()});
 
 	    	var vote_btn = document.createElement("button");
 	    	vote_btn.type = "button";
 	    	vote_btn.className = "btn formright";
 	    	vote_btn.id = "sendVotes";
 	    	vote_btn.innerHTML = '<i class="fa-solid fa-check-to-slot"></i>&nbsp;Vote';
+			close_btn.addEventListener("click", ()=>{changeVotes()});
 
 	    	btn_grid.append(close_btn);
 	    	btn_grid.append(vote_btn);
 	    	popup.append(grid);
+	    	popup.append(time_grid);
 	    	popup.append(btn_grid);
 
 	    	document.body.append(popup);
 	   		openForm("appoint-popup");
 	    }
 	});
+}
+
+function changeVotes() {
+	var form_data = {
+		appoint_id: null,
+		timeslots: [],
+	};
+	$.each($('#appoint-popup').serializeArray(), function() {
+		if (this.name == "appoint_id") {
+			form_data['appoint_id'] = this.value;
+			return;
+		}
+    	form_data['timeslots'].push(this.value);
+	});
+
+	$.ajax({
+    	type: "GET",
+    	url: "../service_handler.php",
+    	cache: false,
+    	data: { method: "changeVotes", param: form_data},
+    dataType: "json",
+    success: function (response) {
+    }        
+});
+	closeForm();
 }
 
 //creates list of all appointments
