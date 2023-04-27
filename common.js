@@ -217,6 +217,7 @@ function loadFullAppoint(id) {
 	    	close_btn.className = "btn formleft";
 	    	close_btn.id = "closeAppointFull";
 	    	close_btn.innerHTML = '<i class="fa-solid fa-square-xmark"></i>&nbsp;Cancel';
+			close_btn.addEventListener("click", ()=>{deleteAppointPopup()})
 
 	    	var vote_btn = document.createElement("button");
 	    	vote_btn.type = "button";
