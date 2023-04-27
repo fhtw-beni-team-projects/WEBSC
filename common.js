@@ -9,8 +9,7 @@ $("#timeslot-prompt").click(newTimeslotField);
 
 $("#closeLogin").click(closeForm);
 $("#closeSignup").click(closeForm);
-$("#sendLogin").click(login);
-$("#sendSignup").click(signup);
+$("#closeAppoint").click(closeForm);
 $("#changeForm").click(()=>{openForm("signup")})
 
 function openForm(form) {
@@ -84,6 +83,7 @@ function newAppoint() {
 	    	timeslots = 0;
 	    }        
 	});
+	closeForm();
 }
 
 function newTimeslotField() {

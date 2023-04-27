@@ -248,3 +248,13 @@ button {
   position: relative;
   margin-top: 70px;
 }
+
+.darkener {
+  position: fixed;
+  top: 0;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background: #00000088;
+  z-index: 3;
+}
