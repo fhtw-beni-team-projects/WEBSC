@@ -69,10 +69,11 @@ class appoint
 		$sql = "DELETE FROM appointment WHERE id = ? AND user_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("ii", $id, $user_id);
+		$stmt->execute();
 	
-		$success = $stmt->execute();
+		//$rows = $stmt->get_result()->affected_rows;
 
-		return $success;
+		return $conn->affected_rows;
 	}
 
 	public static function getAppoint($id)
@@ -93,6 +94,7 @@ class appoint
 		$result['timeslot'] = self::getTimeslots($id, true);
 		$result['comment'] = self::getComments($id);
 		$result['votecount'] = self::getVoteCount($id);
+		$result['owner'] = $result['user_id'] == $_SESSION['user_id'];
 
 		$conn->close();
 

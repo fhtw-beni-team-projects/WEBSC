@@ -135,6 +135,10 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 }
 
+.grid.triqual {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
 .descr {
   display: inline-block;
   padding: 0;
@@ -326,4 +330,8 @@ button {
 #timeslot-prompt {
   padding-top: 2px;
   padding-bottom: 5px;
+}
+
+.red {
+  background-color: var(--red);
 }

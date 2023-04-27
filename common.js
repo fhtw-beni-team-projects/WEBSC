@@ -213,6 +213,22 @@ function appointListPrepend(element) {
 	$('#appointment-list').prepend(newAppointment);
 }
 
+function deleteAppoint(id) {
+	$.ajax({
+    	type: "GET",
+    	url: "../service_handler.php",
+    	cache: false,
+    	data: { method: "delAppoint", param: {
+    	    id: id,
+    	}},
+    	dataType: "json",
+    	success: function (response) {
+        	$('#appointment-nr-' + id).remove();
+        	closeForm();
+    	}        
+	});
+}
+
 function loadFullAppoint(id) {
 
 	$.ajax({
@@ -293,7 +309,7 @@ function loadFullAppoint(id) {
 			time_grid.append(hidden);
 
 			var btn_grid = document.createElement("div");
-			btn_grid.className = "formcontent grid equal";
+			response['owner'] ? btn_grid.className = "formcontent grid triqual" : btn_grid.className = "formcontent grid equal";
 
 			var close_btn = document.createElement("button");
 			close_btn.type = "button";
@@ -311,6 +327,15 @@ function loadFullAppoint(id) {
 
 			btn_grid.append(close_btn);
 			btn_grid.append(vote_btn);
+
+			if (response['owner']) {
+				var del_btn = document.createElement("button");
+				del_btn.type = "button";
+				del_btn.className = "btn formrightright red";
+				del_btn.id = "del-app";
+				del_btn.innerHTML = '<i class="fa-solid fa-trash"></i>&nbsp;Delete';
+				btn_grid.append(del_btn);
+			}
 
 			var comment_grid = document.createElement("div");
 	  		comment_grid.className = "formcontent grid equal";
@@ -351,6 +376,8 @@ function loadFullAppoint(id) {
 
 			document.body.append(popup);
 			$('#new-comment-btn').click(()=>{addComment(response['id'])});
+			if (response['owner'])
+				$('#del-app').click(()=>{deleteAppoint(response['id'])});
 	   		openForm("appoint-popup");
 		}
 	});
