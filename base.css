@@ -225,6 +225,8 @@ button {
   height: auto;
   margin-bottom: 20px;
   cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 8px 8px 4px black;
 }
 
 .appointment-time {
@@ -232,6 +234,8 @@ button {
     padding-top: 20px;
     padding-bottom: 20px;
     background-color: var(--yellow-lite);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
 }
 
 .appointment-desc {
