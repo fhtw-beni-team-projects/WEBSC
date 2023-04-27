@@ -11,12 +11,21 @@ $("#logout-button").click(()=>{openForm("logout")});
 $("#timeslot-prompt").click(newTimeslotField);
 $("#new-button").click(()=>{openForm("new-appoint")});
 $("#closeAppoint").click(closeForm);
+$("#closeLogin").click(closeForm);
+$("#closeSignin").click(closeForm);
+$("#closeLogout").click(closeForm);
 
 $(".close").click(closeForm);
-$("#changeForm").click(()=>{openForm("signup")})
+$("#loginChangeForm").click(()=>{changeForm("signup")});
+$("#signinChangeForm").click(()=>{changeForm("login")});
 
 function openForm(form) {
 	$('#' + form + ", .darkener").show();
+}
+
+function changeForm(form) {
+	closeForm();
+	openForm(form);
 }
 
 function closeForm() {

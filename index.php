@@ -17,7 +17,7 @@ session_start();
 <body>
 	<div class="darkener" id="darkener" onclick="closeForm()"></div>
 	<nav class="navMenu">
-    	<a id="home-button" class="navItem">Home</a>
+    	<a id="home-button" class="navItem" href="index.php">Home</a>
       	<a id="new-button" class="navItem">New</a>
 	  	<a id="login-button" class="navItem">Login</a>
 	  	<a id="user-button" class="navItem"></a>

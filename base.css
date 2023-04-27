@@ -90,8 +90,8 @@ body {
 }
 
 .navMenu a:nth-child(1):hover ~ .dot {
-  -webkit-transform: translateX(36px);
-  transform: translateX(36px);
+  -webkit-transform: translateX(37px);
+  transform: translateX(37px);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
@@ -106,8 +106,8 @@ body {
 }
 
 .navMenu a:nth-child(3):hover ~ .dot {
-  -webkit-transform: translateX(195px);
-  transform: translateX(195px);
+  -webkit-transform: translateX(207px);
+  transform: translateX(207px);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
@@ -218,7 +218,7 @@ button {
   color:#f6f4e6;  
 }
 
-#changeForm {
+#loginChangeForm, #signinChangeForm {
   color: #fddb3a;
   cursor: pointer;
 }
