@@ -9,6 +9,8 @@ $("#sendAppoint").click(newAppoint);
 $("#login-button").click(()=>{openForm("login")});
 $("#logout-button").click(()=>{openForm("logout")});
 $("#timeslot-prompt").click(newTimeslotField);
+$("#new-button").click(()=>{openForm("new-appoint")});
+$("#closeAppoint").click(closeForm);
 
 $(".close").click(closeForm);
 $("#changeForm").click(()=>{openForm("signup")})

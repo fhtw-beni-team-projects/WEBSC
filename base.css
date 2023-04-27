@@ -35,7 +35,8 @@
   display: none;
   position: sticky;
   right:0;
-  padding-left: 5px;
+  padding-left: 10px;
+
 }
 
 #login-button {
@@ -89,8 +90,8 @@ body {
 }
 
 .navMenu a:nth-child(1):hover ~ .dot {
-  -webkit-transform: translateX(30px);
-  transform: translateX(30px);
+  -webkit-transform: translateX(36px);
+  transform: translateX(36px);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
@@ -237,6 +238,7 @@ button {
   cursor: pointer;
   border-radius: 12px;
   box-shadow: 6px 6px 4px black;
+  grid-template-columns: 20%;
 }
 
 .appointment-time {
@@ -250,6 +252,7 @@ button {
 
 .appointment-desc {
   grid-area: desc;
+  overflow-wrap: break-word;
 }
 
 .appointment-title {
@@ -305,4 +308,8 @@ button {
   float: right;
   margin: 0;
   z-index: 2
+}
+
+.navItem {
+  text-align: center;
 }

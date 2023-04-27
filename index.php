@@ -17,11 +17,11 @@ session_start();
 <body>
 	<div class="darkener" id="darkener" onclick="closeForm()"></div>
 	<nav class="navMenu">
-    	<a id="home-button">Home</a>
-      	<a id="about-button">About</a>
-	  	<a id="login-button">Login</a>
-	  	<a id="user-button"></a>
-	  	<a id="logout-button"><i class="fa fa-sign-out" aria-hidden="true"></i>
+    	<a id="home-button" class="navItem">Home</a>
+      	<a id="new-button" class="navItem">New</a>
+	  	<a id="login-button" class="navItem">Login</a>
+	  	<a id="user-button" class="navItem"></a>
+	  	<a id="logout-button" class="navItem"><i class="fa fa-sign-out" aria-hidden="true"></i>
 </a>
       	<div class="dot"></div>
     </nav>
