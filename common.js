@@ -1,4 +1,5 @@
 var timeslots = 0;
+var listLength = 0;
 
 //Block of adding OnClick functionality
 $("#sendLogin").click(login);
@@ -81,6 +82,7 @@ function newAppoint() {
 	    dataType: "json",
 	    success: function (response) {
 	    	timeslots = 0;
+	    	appointListPrepend(form_data);
 	    }        
 	});
 	closeForm();
@@ -120,39 +122,40 @@ function getAppointmentElements() {
 }
 
 function generateAppointmentElements(json) {
-	var i = 1;
-
 	//goes through all elements in json and creates an new Appointment on the website
 	json.forEach(element => {
-
-		//Could be done nicer
-		var newAppointment = document.createElement("div");
-		var timeDiv = document.createElement("div");
-		var titleDiv = document.createElement("div");
-		var descDiv = document.createElement("div");
-
-		//filling created divs with values
-		//TODO: actual json Werte verwenden
-		newAppointment.className = "appointment-entry";
-		newAppointment.id = "appointment-nr-"+i;
-		newAppointment.addEventListener("click", ()=>{openForm("appointment")});
-
-		timeDiv.className = "appointment-time";
-		titleDiv.className = "appointment-title";
-		descDiv.className = "appointment-desc";
-		descDiv.innerHTML = element['descr'];
-		titleDiv.innerHTML = element['title'];
-		timeDiv.innerHTML = "Open until:<br>" + element['deadline'];
-
-		//appending created divs to appointment entry
-		newAppointment.appendChild(timeDiv);
-		newAppointment.appendChild(titleDiv);
-		newAppointment.appendChild(descDiv);
-
-		document.getElementById("appointment-list").appendChild(newAppointment);
-
-		i++;
+		appointListPrepend(element);
 	});
+}
+
+function appointListPrepend(element) {
+	listLength++;
+
+	//Could be done nicer
+	var newAppointment = document.createElement("div");
+	var timeDiv = document.createElement("div");
+	var titleDiv = document.createElement("div");
+	var descDiv = document.createElement("div");
+
+	//filling created divs with values
+	//TODO: actual json Werte verwenden
+	newAppointment.className = "appointment-entry";
+	newAppointment.id = "appointment-nr-" + listLength;
+	newAppointment.addEventListener("click", ()=>{openForm("appointment")});
+
+	timeDiv.className = "appointment-time";
+	titleDiv.className = "appointment-title";
+	descDiv.className = "appointment-desc";
+	descDiv.innerHTML = element['descr'];
+	titleDiv.innerHTML = element['title'];
+	timeDiv.innerHTML = "Open until:<br>" + element['deadline'];
+
+	//appending created divs to appointment entry
+	newAppointment.appendChild(timeDiv);
+	newAppointment.appendChild(titleDiv);
+	newAppointment.appendChild(descDiv);
+
+	$('#appointment-list').prepend(newAppointment);
 }
 
 //creates list of all appointments
