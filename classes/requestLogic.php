@@ -7,6 +7,9 @@ class requestLogic
 	function request($method, $param) {
 		switch ($method)
 		{
+			case 'isLoggedIn':
+				$result = isset($_SESSION['user_id']) ? user::getName($_SESSION['user_id']) : false;
+				break;
 			case 'getAppointList':
 				$result = appoint::getList($param ? $param['limit'] : NULL);
 				break;

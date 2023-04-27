@@ -20,6 +20,22 @@ function openForm(form) {
 function closeForm() {
 	$(".popup, .darkener").hide();
 }
+function isLoggedIn() {
+	$.ajax({
+    	type: "GET",
+    	url: "../service_handler.php",
+    	cache: false,
+    	data: { method: "isLoggedIn", param: 0 },
+    	dataType: "json",
+    	success: function (response) {
+	    	if (response) {
+	    		$('#user-button').html(response);
+				$('#user-button').show();
+				$('#login-button').hide();
+	    	}
+    	}
+	});
+}   	
 
 function login() {
 	var form_data = { };
@@ -35,10 +51,10 @@ function login() {
     	dataType: "json",
     	success: function (response) {
 	    	$('#user-button').html(response);
+			$('#user-button').show();
+			$('#login-button').hide();
     	}       
 	});
-	$('#user-button').show();
-	$('#login-button').hide();
 	closeForm();
 }
 
@@ -160,5 +176,6 @@ function appointListPrepend(element) {
 
 //creates list of all appointments
 window.addEventListener('load', function () {
+	isLoggedIn();
 	getAppointmentElements();
   })
