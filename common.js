@@ -14,7 +14,6 @@ $("#closeAppoint").click(closeForm);
 $("#closeLogin").click(closeForm);
 $("#closeSignin").click(closeForm);
 $("#closeLogout").click(closeForm);
-
 $(".close").click(closeForm);
 $("#loginChangeForm").click(()=>{changeForm("signup")});
 $("#signinChangeForm").click(()=>{changeForm("login")});
@@ -191,7 +190,6 @@ function appointListPrepend(element) {
 	var votecountDiv = document.createElement("div");
 
 	//filling created divs with values
-	//TODO: actual json Werte verwenden
 	newAppointment.className = "appointment-entry";
 	newAppointment.id = "appointment-nr-" + listLength;
 	newAppointment.addEventListener("click", ()=>{loadFullAppoint(element['id'])});
