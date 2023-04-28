@@ -352,14 +352,15 @@ function loadFullAppoint(id) {
 	  		comment_grid.className = "formcontent grid equal";
 	  
 			var text_area = document.createElement("textarea");
-			text_area.className = "formfull"
-			text_area.id = "new-comment-text"
+			text_area.className = "formfull forminput";
+			text_area.id = "new-comment-text";
+			text_area.placeholder = "Write a comment";
 
 			var btn_comment = document.createElement("button");
 			btn_comment.type = "button";
 			btn_comment.className = "btn formfull";
 			btn_comment.id = "new-comment-btn";
-			btn_comment.innerHTML = "Send&nbsp;comment";
+			btn_comment.innerHTML = "<i class='fa-solid fa-comment'></i>&nbsp;Send&nbsp;comment";
 
 			comment_grid.append(text_area);
 			comment_grid.append(btn_comment);

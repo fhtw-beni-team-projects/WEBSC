@@ -173,7 +173,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 1px 1px 3px;
+  box-shadow: 1px 1px 3px black;
   background: #2c3e50;
   border-radius: 5px;
   margin: 10px;
@@ -311,7 +311,7 @@ button {
 }
 
 .comment {
-  background: var(--bg-main);
+  background: #1d2a36;
   padding: 25px;
   margin: 10px 0 10px 0;
   border-radius: 5px;
@@ -319,7 +319,7 @@ button {
 }
 
 .info {
-  color: var(--color-main-lite);
+  color: #f6f4e6;
   font-size: 12px;
   float: right;
   margin: 0;
