@@ -30,6 +30,8 @@ function changeForm(form) {
 function closeForm() {
 	$(".popup, .darkener").hide();
 	$("#appoint-popup").remove();
+	document.querySelectorAll('.timeslot').forEach(e => e.remove());
+	timeslots = 0;
 }
 
 function isLoggedIn() {
@@ -143,14 +145,14 @@ function newTimeslotField() {
 	timeslots++;
 
 	var label = document.createElement("label");
-	label.className = "descr formleft";
+	label.className = "descr formleft timeslot";
 	label.for = "title";
 	label.innerHTML = "Option&nbsp;" + timeslots + ":";
 
 	var option = document.createElement("input");
-	option.className = "popup_input formright forminput";
+	option.className = "popup_input formright forminput timeslot";
 	option.type = "datetime-local";
-	option.name = "option" + timeslots
+	option.name = "option" + timeslots;
 
 	$("#appoint-inputs").append(label);
 	$("#appoint-inputs").append(option);
