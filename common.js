@@ -203,7 +203,12 @@ function appointListPrepend(element) {
 	descDiv.innerHTML = element['descr'];
 	titleDiv.innerHTML = element['title'];
 	timeDiv.innerHTML = "Open&nbsp;until:<br>" + element['deadline'];
-	votecountDiv.innerHTML = element['votecount'] + "&nbsp;votes"
+	votecountDiv.innerHTML = element['votecount'] + "&nbsp;votes";
+
+	if (Date.parse(element['deadline']) < Date.now()) {
+		timeDiv.classList.add("red");
+		timeDiv.innerHTML = "Closed&nbsp;since:<br>" + element['deadline'];
+	}
 
 
 	//appending created divs to appointment entry
@@ -243,29 +248,30 @@ function loadFullAppoint(id) {
 		dataType: "json",
 		success: function (response) {
 			var vote_count = response['votecount'];
+			var open = Date.parse(response['deadline']) > Date.now();
 
 
 			var popup = document.createElement("form");
 			popup.id = "appoint-popup";
-			popup.className = "popup";
+			popup.className = "popup large";
 
 			var grid = document.createElement("div");
 			grid.className = "formcontent grid";
 			var h = document.createElement("h3");
 			h.innerHTML = response['title'];
-			h.className = "formtext formfull";
+			h.className = "formtext formfull2";
 			grid.append(h);
 			var p1 = document.createElement("p");
 			p1.innerHTML = response['descr'];
-			p1.className = "formtext formfull";
+			p1.className = "formtext formfull2";
 			grid.append(p1);
 			var p2 = document.createElement("p");
 			p2.innerHTML = response['duration'] + "&nbsp;Minutes";
-			p2.className = "formtext formfull";
+			p2.className = "formtext formfull2";
 			grid.append(p2);
 			var p3 = document.createElement("p");
 			p3.innerHTML = "Voting&nbsp;closes&nbsp;on&nbsp;" + response['deadline'];
-			p3.className = "formtext formfull";
+			p3.className = "formtext formfull2";
 			grid.append(p3);
 
 			var time_grid = document.createElement("div");
@@ -301,7 +307,8 @@ function loadFullAppoint(id) {
 
 				time_grid.append(votes);
 				time_grid.append(time);
-				time_grid.append(check);
+				if (open)
+					time_grid.append(check);
 			});
 
 			var hidden = document.createElement("input");
@@ -311,11 +318,11 @@ function loadFullAppoint(id) {
 			time_grid.append(hidden);
 
 			var btn_grid = document.createElement("div");
-			response['owner'] ? btn_grid.className = "formcontent grid triqual" : btn_grid.className = "formcontent grid equal";
+			response['owner'] && open ? btn_grid.className = "formcontent grid triqual" : btn_grid.className = "formcontent grid equal";
 
 			var close_btn = document.createElement("button");
 			close_btn.type = "button";
-			close_btn.className = "btn formleft";
+			close_btn.className = (response['owner'] || open) ? "btn formleft" : "btn formfull";
 			close_btn.id = "close";
 			close_btn.innerHTML = '<i class="fa-solid fa-square-xmark"></i>&nbsp;Cancel';
 			close_btn.addEventListener("click", closeForm);
@@ -328,12 +335,13 @@ function loadFullAppoint(id) {
 			vote_btn.addEventListener("click", changeVotes);
 
 			btn_grid.append(close_btn);
-			btn_grid.append(vote_btn);
+			if (open)
+				btn_grid.append(vote_btn);
 
 			if (response['owner']) {
 				var del_btn = document.createElement("button");
 				del_btn.type = "button";
-				del_btn.className = "btn formrightright red";
+				del_btn.className = open ? "btn formrightright red" : "btn formright red";
 				del_btn.id = "del-app";
 				del_btn.innerHTML = '<i class="fa-solid fa-trash"></i>&nbsp;Delete';
 				btn_grid.append(del_btn);

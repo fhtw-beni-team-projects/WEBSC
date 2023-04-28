@@ -143,7 +143,7 @@ class appoint
 		return $result['appoint_id'];
 	}
 
-	private static function newTimeslots($start, $appoint_id)
+	private static function newTimeslot($start, $appoint_id)
 	{
 		$conn = new mysqli_init();
 		if ($conn->connect_error) {
