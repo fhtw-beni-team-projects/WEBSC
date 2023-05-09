@@ -37,7 +37,7 @@ function closeForm() {
 function isLoggedIn() {
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "isLoggedIn", param: 0 },
 		dataType: "json",
@@ -60,7 +60,7 @@ function login() {
 
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "login", param: form_data },
 		dataType: "json",
@@ -79,7 +79,7 @@ function logout() {
 
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "logout", param: 0 },
 		dataType: "json",
@@ -100,7 +100,7 @@ function signup() {
 
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "signup", param: form_data },
 		dataType: "json",
@@ -129,7 +129,7 @@ function newAppoint() {
 
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "newAppoint", param: form_data },
 		dataType: "json",
@@ -163,7 +163,7 @@ function getAppointmentElements() {
 	//ajax call to get json with appointments
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "getAppointList", param: {
 		}},
@@ -223,7 +223,7 @@ function appointListPrepend(element) {
 function deleteAppoint(id) {
 	$.ajax({
     	type: "GET",
-    	url: "../service_handler.php",
+    	url: "./service_handler.php",
     	cache: false,
     	data: { method: "delAppoint", param: {
     	    id: id,
@@ -240,7 +240,7 @@ function loadFullAppoint(id) {
 
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "getFullAppoint", param: {
 			id: id
@@ -410,7 +410,7 @@ function changeVotes() {
 
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "changeVotes", param: form_data },
 		dataType: "json",
@@ -423,7 +423,7 @@ function changeVotes() {
 function addComment(id) {
 	$.ajax({
 		type: "GET",
-		url: "../service_handler.php",
+		url: "./service_handler.php",
 		cache: false,
 		data: { method: "newComment", param: {
 			content: $('#new-comment-text').val(),
